@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "693257861617",
+    "firebase_url": "https://skripsi-b2af8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "skripsi-b2af8",
+    "storage_bucket": "skripsi-b2af8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693257861617:android:eefd4780bd52b08d496c50",
+        "android_client_info": {
+          "package_name": "com.algirm.arling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693257861617-oktqffrp2l5s04o8kjkvkutnlle09r3s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.algirm.arling",
+            "certificate_hash": "51b22ce9767ad232e103fd9ec75b28862a27dcd0"
+          }
+        },
+        {
+          "client_id": "693257861617-gfcphahhls66kvurn8hrekftue361139.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Xla2ntLIPRWtwHP2NGmH9FgvemZkLqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693257861617-gfcphahhls66kvurn8hrekftue361139.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693257861617:android:f9150072615a8859496c50",
+        "android_client_info": {
+          "package_name": "com.algirm.rondar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693257861617-3lkiol1uub7r0fqplselu7gjg4mo4amk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.algirm.rondar",
+            "certificate_hash": "51b22ce9767ad232e103fd9ec75b28862a27dcd0"
+          }
+        },
+        {
+          "client_id": "693257861617-gfcphahhls66kvurn8hrekftue361139.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Xla2ntLIPRWtwHP2NGmH9FgvemZkLqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693257861617-gfcphahhls66kvurn8hrekftue361139.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

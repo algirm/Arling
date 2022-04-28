@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Arling</string>
+    <string-array name="sektor_list">
+        <item>POS</item>
+        <item>GABUNG1</item>
+        <item>GABUNG2</item>
+        <item>GABUNG3</item>
+    </string-array>
+</resources>
