@@ -47,6 +47,9 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".services.MyNotificationService"
+            android:foregroundServiceType="location" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBOS1FshKFkOzZMYOXp-fj4u4K-nQK4vF4" />

@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.hardware.*
 import android.location.Geocoder
 import android.location.Location
+import android.media.RingtoneManager
 import android.opengl.Matrix
 import android.os.Bundle
 import android.os.Looper
@@ -18,6 +19,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.getSystemService
 import androidx.lifecycle.lifecycleScope
 import com.algirm.arling.R
@@ -25,16 +29,20 @@ import com.algirm.arling.ar.ARCamera
 import com.algirm.arling.ar.AROverlayView
 import com.algirm.arling.data.model.Petugas
 import com.algirm.arling.databinding.ActivityMainBinding
+import com.algirm.arling.services.MyNotificationService
 import com.algirm.arling.ui.login.LoginActivity
 import com.algirm.arling.ui.login.SectorActivity
 import com.algirm.arling.ui.splash.SplashActivity
 import com.algirm.arling.util.Constants
+import com.algirm.arling.util.Constants.ACTION_START_OR_RESUME_SERVICE
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
@@ -107,8 +115,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
         lifecycleScope.launchWhenCreated {
+            viewModel.listPing.collect { listPing ->
+                if (listPing.isNotEmpty()) {
+                    notifyPing()
+                }
+            }
+        }
+        lifecycleScope.launchWhenCreated {
             viewModel.currentLoc.collect { lastLocation ->
                 viewModel.getAllOnce()
+                viewModel.getListPing()
                 arOverlayView.updateCurrentLocation(lastLocation)
                 updateMarker(mListPetugas)
             }
@@ -133,6 +149,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 updateMarker(mListPetugas)
             }
         }
+    }
+
+    private fun notifyPing() {
+        // make notification
+        val builder = NotificationCompat.Builder(this@MainActivity, "notifikasi")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("statusText")
+            .setContentText("textNotif")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+        NotificationManagerCompat.from(this@MainActivity).notify(1, builder.build())
     }
 
     private fun updateMarker(listPetugas: List<Petugas>) {

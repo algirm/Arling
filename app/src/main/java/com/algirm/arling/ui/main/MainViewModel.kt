@@ -51,6 +51,9 @@ class MainViewModel @Inject constructor(
     private val _pingState: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val pingState = _pingState.asStateFlow()
 
+    private val _listPing: MutableSharedFlow<List<String>> = MutableSharedFlow()
+    val listPing = _listPing.asSharedFlow()
+
     init {
         viewModelScope.launch(dispatcher.main) {
             Timber.d("init data..")
@@ -86,6 +89,19 @@ class MainViewModel @Inject constructor(
                 petugasRepo.setPing(!pingState.value)
             }
             getPingStatus()
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+    }
+
+    fun getListPing() = viewModelScope.launch(dispatcher.main) {
+        Timber.d("getListPing")
+        try {
+            withContext(dispatcher.io) {
+                petugasRepo.getListPing().collect { resultListPing ->
+                    _listPing.emit(resultListPing)
+                }
+            }
         } catch (e: Exception) {
             Timber.e(e)
         }
@@ -201,7 +217,6 @@ class MainViewModel @Inject constructor(
 //                val distance = currentLocation.distanceTo(listPetugas.value[i].getLocation()).roundToInt()
 //                val visible = x.unaryPlus() <= screenWidth && x.unaryPlus() >= 0
 //                arPoints.add(ARPoint(listPetugas.value[i], x, y, distance, visible))
-////                Timber.i("$screenWidth x $screenHeight, $x x $y")
 //            }
         }
         _listArPoint.value = arPoints

@@ -27,6 +27,16 @@ class PetugasRepoImpl @Inject constructor(
         }
     }
 
+    override suspend fun getListPing() = flow {
+        val result = ArrayList<String>()
+        firebaseDb.getReference("ping").get().await().children.forEach {
+            if (it.key != firebaseAuth.currentUser!!.uid) {
+                result.add(it.key!!)
+            }
+        }
+        emit(result)
+    }
+
     override suspend fun getAllOnce() = flow {
         val firebaseUser = firebaseAuth.currentUser
         val result = ArrayList<Petugas>()
@@ -57,10 +67,20 @@ class PetugasRepoImpl @Inject constructor(
     }
 
     override suspend fun setPing(ping: Boolean) {
-        val firebaseUser = firebaseAuth.currentUser
+        val uid = firebaseAuth.currentUser!!.uid
         val updateLocMap = HashMap<String, Any>()
         updateLocMap["ping"] = ping
-        firebaseDb.getReference(getSectorRef()).child(firebaseUser!!.uid).updateChildren(updateLocMap).await()
+        firebaseDb.getReference(getSectorRef()).child(uid).updateChildren(updateLocMap).await()
+
+        // update in ping database
+        val updatePingMap = HashMap<String, Any?>()
+        if (ping) {
+            updatePingMap[uid] = ping
+            firebaseDb.getReference("ping").updateChildren(updatePingMap).await()
+        } else {
+            updatePingMap[uid] = null
+            firebaseDb.getReference("ping").updateChildren(updatePingMap).await()
+        }
     }
 
 }

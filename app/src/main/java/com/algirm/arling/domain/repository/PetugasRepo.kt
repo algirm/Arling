@@ -14,4 +14,6 @@ interface PetugasRepo {
 
     suspend fun setPing(ping: Boolean)
 
+    suspend fun getListPing(): Flow<List<String>>
+
 }
