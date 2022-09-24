@@ -29,7 +29,6 @@ import com.algirm.arling.ar.ARCamera
 import com.algirm.arling.ar.AROverlayView
 import com.algirm.arling.data.model.Petugas
 import com.algirm.arling.databinding.ActivityMainBinding
-import com.algirm.arling.services.MyNotificationService
 import com.algirm.arling.ui.login.LoginActivity
 import com.algirm.arling.ui.login.SectorActivity
 import com.algirm.arling.ui.splash.SplashActivity
@@ -155,8 +154,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         // make notification
         val builder = NotificationCompat.Builder(this@MainActivity, "notifikasi")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
-            .setContentTitle("statusText")
-            .setContentText("textNotif")
+            .setContentTitle("Arling")
+            .setContentText("Petugas Mengirim Sinyal Darurat")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)

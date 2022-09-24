@@ -74,13 +74,8 @@ class PetugasRepoImpl @Inject constructor(
 
         // update in ping database
         val updatePingMap = HashMap<String, Any?>()
-        if (ping) {
-            updatePingMap[uid] = ping
-            firebaseDb.getReference("ping").updateChildren(updatePingMap).await()
-        } else {
-            updatePingMap[uid] = null
-            firebaseDb.getReference("ping").updateChildren(updatePingMap).await()
-        }
+        updatePingMap[uid] = if (ping) ping else null
+        firebaseDb.getReference("ping").updateChildren(updatePingMap).await()
     }
 
 }
